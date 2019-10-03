@@ -1,0 +1,188 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+body {
+  background-color: #333;
+  color: #fff;
+}
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+  margin: 0 auto;
+  max-width: 1100px;
+}
+.header {
+  padding: 10px 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background: purple;
+}
+img {
+  height: 50px;
+  width: 50px;
+  margin-right: 20px;
+}
+h2 {
+  text-transform: uppercase;
+  color: #fff;
+}
+.logout,
+.new,
+.delete,
+.save {
+  margin-left: 20px;
+  padding: 0.5em 1.2em;
+  border-radius: 2em;
+  color: #ffffff;
+  background-color: #9a4ef1;
+  text-align: center;
+  border: none;
+  text-transform: uppercase;
+}
+.logout:hover,
+.new:hover,
+.delete:hover,
+.save:hover {
+  opacity: 0.8;
+}
+.new {
+  background-color: #ffa500;
+}
+.delete {
+  background-color: red;
+  float: right;
+}
+.save {
+  background-color: #003366;
+  float: right;
+  align-self: flex-end;
+}
+.Toastify__toast-container--top-left {
+  top: 0 !important;
+}
+.list {
+  padding-top: 20px;
+  display: grid;
+  gap: 30px;
+  grid-template-columns: 1fr;
+  width: 50%;
+  margin: 0 auto;
+}
+.card {
+  box-shadow: 0 0px 10px 0 rgba(255, 255, 255);
+  padding: 30px;
+  text-align: center;
+  border-radius: 15px;
+  color: #fff;
+  margin-bottom: 15px;
+}
+.card.title,
+.card-subtitle,
+.card-text {
+  margin: 5px 0;
+}
+.select {
+  margin: 20px;
+  display: block;
+  border-radius: 5px;
+  padding: 0.6em 1.4em 0.5em 0.8em;
+  background-color: #003366;
+  color: #fff;
+}
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.modal-main {
+  position: fixed;
+  background: white;
+  width: 50%;
+  height: auto;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  border-radius: 10px;
+}
+.display-block {
+  display: block;
+}
+
+.display-none {
+  display: none;
+}
+.form-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin: 10px 0;
+}
+input[type='text'] {
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: block;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+label {
+  text-transform: uppercase;
+  font-weight: 800;
+  align-self: flex-start;
+}
+.newTitle {
+  text-align: center;
+  color: #000;
+}
+.newContainer {
+  width: 80%;
+  margin: 0 auto;
+}
+.react-datepicker-wrapper {
+  width: 100%;
+}
+
+.button-form-group {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-direction: row;
+}
+.google-button {
+  background-color: rgb(66, 133, 244);
+  display: inline-flex;
+  align-items: center;
+  color: #fff;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.24), 0 0 1px 0 rgba(0, 0, 0, 0.24);
+  padding: 0;
+  border-radius: 2;
+  border: 1px solid transparent;
+  font-size: 14;
+  font-weight: 500;
+}
+.google-button:hover {
+  cursor: 'pointer';
+  opacity: 0.9;
+}
+.filterTitle {
+  text-align: center;
+  color: #fff;
+}
+.mainSection {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
