@@ -1,6 +1,6 @@
 import React from 'react';
 import moment from 'moment';
-import SingleEvent from '../components/SingleEvent';
+import SingleEvent from './SingleEvent';
 export const renderFilteredData = (filter, filteredEvents, deleteEvent) => {
   switch (filter) {
     case '1':

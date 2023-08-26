@@ -1,40 +1,42 @@
-import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { toast } from 'react-toastify';
-import { useDispatch } from 'react-redux';
-import { removeUser } from '../redux/actions/loginActions';
-import Modal from './Modal';
+import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { removeUser } from "../redux/actions/loginActions";
+import Modal from "./Modal";
 import {
   filterByDay,
   filterByMonth,
-  filterTomorrowEvents
-} from '../helpers/filter';
-import { renderFilteredData } from '../helpers/renderFilteredData';
-import config from '../helpers/toastConfig';
+  filterTomorrowEvents,
+} from "../helpers/filter";
+import { renderFilteredData } from "../components/Events";
 
-toast.configure(config);
 const Home = () => {
   const [events, setEvents] = useState([]);
   const [show, setShow] = useState(false);
-  const [filter, setFilter] = useState('');
+  const [filter, setFilter] = useState("");
   const [filteredEvents, setFilteredEvents] = useState([]);
   const dispatch = useDispatch();
-  const name = useSelector(login => login.login.name);
-  const image = useSelector(login => login.login.imageUrl);
+  const name = useSelector((login) => login.login.name);
+  const image = useSelector((login) => login.login.imageUrl);
   const listNewEvents = () => {
-    return window['gapi'].client.calendar.events.list({
-      calendarId: 'primary',
-      showDeleted: false,
-      timeMin: new Date().toISOString(),
-      singleEvents: true,
-      orderBy: 'startTime'
-    });
+    return window.gapi
+      ? window.gapi.client.calendar.events.list({
+          calendarId: "primary",
+          showDeleted: false,
+          timeMin: new Date().toISOString(),
+          singleEvents: true,
+          orderBy: "startTime",
+        })
+      : Promise.resolve();
   };
-  const createEvent = async event => {
-    await window['gapi'].client.calendar.events.insert({
-      calendarId: 'primary',
-      resource: event
-    });
+  console.log(window.gapi);
+  const createEvent = async (event) => {
+    window.gapi &&
+      (await window.gapi.client.calendar.events.insert({
+        calendarId: "primary",
+        resource: event,
+      }));
     setEvents([
       ...events,
       {
@@ -43,34 +45,41 @@ const Home = () => {
         date: event.start.dateTime.substring(0, 10),
         start: event.start.dateTime.substring(11, 19),
         end: event.end.dateTime.substring(11, 19),
-        fullDate: event.start.dateTime
-      }
+        fullDate: event.start.dateTime,
+      },
     ]);
   };
-  const deleteEvent = async eventId => {
-    const newEvents = events.filter(event => event.id !== eventId);
+  const deleteEvent = async (eventId) => {
+    const newEvents = events.filter((event) => event.id !== eventId);
     setEvents(newEvents);
-    return await window['gapi'].client.calendar.events.delete({
-      calendarId: 'primary',
-      eventId
-    });
+    return (
+      window.gapi &&
+      (await window["gapi"].client.calendar.events.delete({
+        calendarId: "primary",
+        eventId,
+      }))
+    );
   };
 
   useEffect(() => {
     toast.success(`Welcome ${name}`);
-    listNewEvents().then(res => {
-      let events = res.result.items.map(item => ({
-        id: item.id,
-        name: item.summary,
-        date: item.start.dateTime.substring(0, 10),
-        start: item.start.dateTime.substring(11, 19),
-        end: item.end.dateTime.substring(11, 19),
-        fullDate: item.start.dateTime
-      }));
-      events = events.sort((a, b) => a.start - b.start);
-      setEvents(events);
-      setFilter('7');
-    });
+    if (window.gapi) {
+      listNewEvents().then((res) => {
+        if (res) {
+          let events = res.result.items.map((item) => ({
+            id: item.id,
+            name: item.summary,
+            date: item.start.dateTime.substring(0, 10),
+            start: item.start.dateTime.substring(11, 19),
+            end: item.end.dateTime.substring(11, 19),
+            fullDate: item.start.dateTime,
+          }));
+          events = events.sort((a, b) => a.start - b.start);
+          setEvents(events);
+          setFilter("7");
+        }
+      });
+    }
   }, []);
 
   useEffect(() => {
@@ -79,15 +88,15 @@ const Home = () => {
 
   const filterEvents = () => {
     switch (filter) {
-      case '1':
+      case "1":
         const tomorrowEvents = filterTomorrowEvents(events);
         setFilteredEvents(tomorrowEvents);
         break;
-      case '7':
+      case "7":
         const filteredEventsinWeek = filterByDay(events);
         setFilteredEvents(filteredEventsinWeek);
         break;
-      case '30':
+      case "30":
         const filteredEventsinMonth = filterByMonth(events);
         setFilteredEvents(filteredEventsinMonth);
         break;
@@ -95,9 +104,9 @@ const Home = () => {
   };
 
   const handleSignoutClick = () => {
-    window['gapi'].auth2.getAuthInstance().signOut();
+    window.gapi && window["gapi"].auth2.getAuthInstance().signOut();
   };
-  const handleFilterChange = event => {
+  const handleFilterChange = (event) => {
     setFilter(event.target.value);
   };
 

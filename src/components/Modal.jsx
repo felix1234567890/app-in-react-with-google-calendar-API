@@ -1,15 +1,9 @@
 import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { toast, Zoom } from 'react-toastify';
+import { toast } from 'react-toastify';
 import moment from 'moment';
-toast.configure({
-  autoClose: 4000,
-  draggable: false,
-  position: toast.POSITION.TOP_LEFT,
-  hideProgressBar: true,
-  transition: Zoom
-});
+
 const Modal = ({ setShow, createEvent }) => {
   const [data, setData] = useState({ name: '', date: '', start: '', end: '' });
   const onChangeHandler = event => {

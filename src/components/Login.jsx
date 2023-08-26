@@ -1,16 +1,9 @@
 import React from 'react';
 import { ReactComponent as Google } from '../helpers/GoogleSVG.svg';
-import { toast, Zoom } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import { setUser } from '../redux/actions/loginActions';
 
-toast.configure({
-  autoClose: 4000,
-  draggable: false,
-  position: toast.POSITION.TOP_CENTER,
-  hideProgressBar: true,
-  transition: Zoom
-});
 const Login = ({ history }) => {
   const dispatch = useDispatch();
   const handleAuthClick = () => {
